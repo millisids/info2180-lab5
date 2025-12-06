@@ -22,10 +22,17 @@ if($lookup === "cities"){
     ");
     $stmt->bindValue(':country', "%$country%");
     $stmt->execute();
-    $cities = $stmt->fetchALL(PDO::FETCH_ASSOC);
+  
   } else {
-    $cities =[];
+    $stmt = $conn->query("
+    SELECT cities.name, cities.district, cities.population
+    FROM cities
+    ORDER BY name ASC
+    "
+    );
   }
+
+  $cities = $stmt->fetchALL(PDO::FETCH_ASSOC);
 ?>
 <table border="1" cellpadding ="8">
   <thead>
